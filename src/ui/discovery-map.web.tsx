@@ -80,6 +80,7 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 24,
+    paddingTop: 64,
     gap: 12,
   },
   notice: {
