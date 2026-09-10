@@ -1,8 +1,11 @@
 import MapView, { Marker } from 'react-native-maps';
 import { StyleSheet } from 'react-native';
 import { buildings, discoveryPoints, pompeiiSite } from '@/content/pompeii';
+import { useUserLocation } from '@/core/services/use-user-location';
 
 export function DiscoveryMap() {
+  const userLocation = useUserLocation();
+
   return (
     <MapView
       style={styles.map}
@@ -12,6 +15,8 @@ export function DiscoveryMap() {
         latitudeDelta: 0.01,
         longitudeDelta: 0.01,
       }}
+      showsUserLocation={userLocation.status === 'granted'}
+      showsMyLocationButton
     >
       {discoveryPoints.map((point) => {
         const building = buildings.find((b) => b.id === point.buildingId);
