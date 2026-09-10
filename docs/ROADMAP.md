@@ -12,7 +12,7 @@ Ogni milestone: obiettivo chiaro → modifica minima → test → verifica → c
 - [x] **Milestone 5** — Distanza dal Discovery Point
 - [x] **Milestone 6** — Bussola / heading
 - [x] **Milestone 7** — Navigazione semplice (distanza, direzione, freccia)
-- [ ] **Milestone 8** — Download/cache modello 3D (placeholder ottimizzato,
+- [x] **Milestone 8** — Download/cache modello 3D (placeholder ottimizzato,
       GLB/Draco) — spostata prima della valutazione AR per avere un modello
       reale su cui testare il prototipo
 - [ ] **Milestone 9** — Valutazione AR definitiva → branch `feature/ar-prototype`
