@@ -30,13 +30,46 @@ nello spazio reale e farlo restare fermo mentre l'utente si muove, Expo Go basta
 | Modulo nativo custom (Expo Modules API) | ARKit diretto | ARCore diretto | Massimo controllo, massima qualità tracking | Più lavoro iniziale, nessuna dipendenza da librerie terze non mantenute |
 | Unity + AR Foundation (react-native-unity) | ARKit via AR Foundation | ARCore via AR Foundation | Bridge RN↔Unity aggiunge peso/complessità | Overkill per l'MVP; da rivalutare se servono VFX avanzati |
 
-**Direzione consigliata**: Expo Development Build + modulo nativo sottile
-(Expo Modules API) che espone pose camera / plane detection / anchor, con
-rendering del modello lato JS via `expo-gl`/three.js. In alternativa, prototipare
-più rapidamente con ViroReact in Milestone 10 e decidere se sostituirlo con un
-modulo custom solo se emergono limiti concreti sul campo. Unity non è scelto di
-default: runtime pesante, bridge fragile da mantenere, sproporzionato per un
-MVP con un solo edificio.
+**Decisione presa (Milestone 9, 2026-09-10)**: `@reactvision/react-viro`
+(ex ViroReact/NativeVision). Verificato via ricerca al momento della decisione
+(non solo dalla conoscenza pregressa) che:
+
+- Versione attiva 2.58.x, aggiornata nelle ultime 24h — non è un progetto
+  abbandonato come temuto nell'analisi iniziale.
+- Supporta la New Architecture/Fabric richiesta da React Native 0.86 (SDK 57).
+- Config plugin Expo ufficiale + starter kit Expo Router/TypeScript.
+- Espone ARKit/ARCore, plane detection e anchor management già pronti,
+  risparmiando settimane di lavoro nativo Swift/Kotlin rispetto al modulo
+  custom.
+
+Compromesso accettato: dipendenza da un progetto di terzi, libreria che porta
+anche funzionalità VR non usate, meno controllo fine sul rendering rispetto a
+`expo-gl`/three.js puro. Da rivalutare (possibile passaggio a modulo nativo
+custom, vedi anche `@stewmore/expo-ar` — molto giovane, v0.1.0 al momento
+della ricerca) solo se emergono limiti concreti di rendering sul campo.
+
+Configurato con `provider: "none"` (disabilita i cloud anchor
+ReactVision/ARCore: non servono, il nostro allineamento è manuale — vedi
+sotto) e `android.xRMode: ["AR"]` (esclude la modalità GVR/VR di default,
+non pertinente per questa app).
+
+Unity non è stato scelto: runtime pesante, bridge RN↔Unity fragile da
+mantenere, sproporzionato per un MVP con un solo edificio.
+
+## Development Build (EAS)
+
+Da qui in poi l'app richiede una Expo Development Build, non più Expo Go:
+
+- Progetto EAS creato: `@gdixie70/discovery-pompeii`.
+- `eas.json` con profilo `development` (`developmentClient: true`,
+  distribuzione `internal`).
+- Build iOS: possibile solo via EAS Build in cloud (l'utente sviluppa su
+  Windows, non ha un Mac per compilare localmente con Xcode). Richiede un
+  account Apple Developer Program (a pagamento, $99/anno) per firmare la
+  build su un device reale — passaggio che l'utente deve gestire
+  personalmente (login Apple ID interattivo, non automatizzabile).
+- Build Android: possibile anche in locale se in futuro serve (Android SDK),
+  ma per ora si usa EAS Build per entrambe le piattaforme per coerenza.
 
 ## Allineamento
 

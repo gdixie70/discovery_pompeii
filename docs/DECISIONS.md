@@ -43,3 +43,28 @@ archeologici (Roma, Ercolano, Atene, Egitto) senza riscrivere il core.
 come il percorso letterale `/discovery/[buildingId]/index` invece del segmento
 dinamico `/discovery/[buildingId]`, causando errori di type-check su
 `router.push()`. Il file piatto genera il tipo corretto.
+
+## 2026-09-10 — ViroReact (`@reactvision/react-viro`) come tecnologia AR
+
+**Decisione**: usare `@reactvision/react-viro` (ex ViroReact/NativeVision) come
+libreria AR per il prototipo, invece di un modulo nativo custom scritto da
+zero. Passaggio da Expo Go a Expo Development Build (EAS Build) a partire da
+questo momento — confermato dall'utente dopo revisione dell'analisi.
+
+**Perché**: verificato via ricerca (non solo dalla mia conoscenza pregressa)
+che la versione attiva (2.58.x, aggiornata nelle ultime 24h al momento della
+decisione) supporta la New Architecture/Fabric richiesta da React Native 0.86
+(SDK 57), ha un config plugin Expo ufficiale e uno starter kit Expo
+Router + TypeScript. Espone ARKit/ARCore, plane detection e anchor management
+già pronti — scriverli da zero (opzione "modulo nativo custom") richiederebbe
+settimane non compatibili con un MVP a sviluppatore singolo. Vedi
+[AR_RESEARCH.md](AR_RESEARCH.md) per il confronto completo.
+
+**Configurazione**: `provider: "none"` nel config plugin — disabilita i cloud
+anchor di ReactVision/ARCore (non servono: il nostro sistema di allineamento è
+manuale, vedi [DISCOVERY_POINT_SPEC.md](DISCOVERY_POINT_SPEC.md)), evitando la
+necessità di API key esterne.
+
+**Impatto**: da questo punto in poi l'AR non è testabile in Expo Go, serve una
+Development Build installata sul dispositivo (EAS Build, vedi
+[AR_RESEARCH.md](AR_RESEARCH.md)). Tutto il resto dell'app resta invariato.

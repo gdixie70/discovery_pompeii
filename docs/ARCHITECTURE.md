@@ -65,6 +65,7 @@ dinamico). Vedi [DECISIONS.md](DECISIONS.md).
 ## Confine Expo Go / Development Build
 
 Tutto ciò che precede l'attivazione della fotocamera AR (stati Explore/Approach,
-mappa, navigazione, cache, download) gira in Expo Go. Il modulo AR (stato
-Discovery) richiede un Expo Development Build a partire dalla Milestone 9. Vedi
-[AR_RESEARCH.md](AR_RESEARCH.md) per il dettaglio.
+mappa, navigazione, cache, download — Milestone 0-8) girava in Expo Go. Da
+Milestone 9 (`@reactvision/react-viro`) il progetto richiede una Expo
+Development Build (EAS Build); Expo Go non è più sufficiente per testare
+l'intera app. Vedi [AR_RESEARCH.md](AR_RESEARCH.md) per il dettaglio.
