@@ -1,5 +1,6 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { buildings, discoveryPoints } from '@/content/pompeii';
+import { formatDistance, haversineDistanceMeters } from '@/core/services/geo';
 import { useUserLocation, type UserLocationState } from '@/core/services/use-user-location';
 
 function locationStatusText(state: UserLocationState): string {
@@ -33,11 +34,20 @@ export function DiscoveryMap() {
       <Text style={styles.locationStatus}>{locationStatusText(userLocation)}</Text>
       {discoveryPoints.map((point) => {
         const building = buildings.find((b) => b.id === point.buildingId);
+        const distance = userLocation.coords
+          ? formatDistance(
+              haversineDistanceMeters(userLocation.coords, {
+                latitude: point.latitude,
+                longitude: point.longitude,
+              }),
+            )
+          : null;
         return (
           <View key={point.id} style={styles.card}>
             <Text style={styles.cardTitle}>{building?.name.it ?? point.id}</Text>
             <Text style={styles.cardMeta}>
               {point.latitude.toFixed(4)}, {point.longitude.toFixed(4)}
+              {distance ? ` — ${distance}` : ''}
             </Text>
           </View>
         );

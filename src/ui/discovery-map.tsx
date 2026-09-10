@@ -1,6 +1,7 @@
 import MapView, { Marker } from 'react-native-maps';
 import { StyleSheet } from 'react-native';
 import { buildings, discoveryPoints, pompeiiSite } from '@/content/pompeii';
+import { formatDistance, haversineDistanceMeters } from '@/core/services/geo';
 import { useUserLocation } from '@/core/services/use-user-location';
 
 export function DiscoveryMap() {
@@ -20,12 +21,20 @@ export function DiscoveryMap() {
     >
       {discoveryPoints.map((point) => {
         const building = buildings.find((b) => b.id === point.buildingId);
+        const distanceLabel = userLocation.coords
+          ? ` — ${formatDistance(
+              haversineDistanceMeters(userLocation.coords, {
+                latitude: point.latitude,
+                longitude: point.longitude,
+              }),
+            )}`
+          : '';
         return (
           <Marker
             key={point.id}
             coordinate={{ latitude: point.latitude, longitude: point.longitude }}
             title={building?.name.it ?? point.id}
-            description={point.description.it}
+            description={`${point.description.it}${distanceLabel}`}
           />
         );
       })}
