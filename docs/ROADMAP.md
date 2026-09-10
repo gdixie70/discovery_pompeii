@@ -8,7 +8,7 @@ Ogni milestone: obiettivo chiaro → modifica minima → test → verifica → c
 - [x] **Milestone 1** — Home screen
 - [x] **Milestone 2** — Data model Discovery Point
 - [x] **Milestone 3** — Mappa + marker
-- [ ] **Milestone 4** — GPS utente
+- [x] **Milestone 4** — GPS utente
 - [ ] **Milestone 5** — Distanza dal Discovery Point
 - [ ] **Milestone 6** — Bussola / heading
 - [ ] **Milestone 7** — Navigazione semplice (distanza, direzione, freccia)
