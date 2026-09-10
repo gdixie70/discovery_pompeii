@@ -10,7 +10,7 @@ Ogni milestone: obiettivo chiaro → modifica minima → test → verifica → c
 - [x] **Milestone 3** — Mappa + marker
 - [x] **Milestone 4** — GPS utente
 - [x] **Milestone 5** — Distanza dal Discovery Point
-- [ ] **Milestone 6** — Bussola / heading
+- [x] **Milestone 6** — Bussola / heading
 - [ ] **Milestone 7** — Navigazione semplice (distanza, direzione, freccia)
 - [ ] **Milestone 8** — Download/cache modello 3D (placeholder ottimizzato,
       GLB/Draco) — spostata prima della valutazione AR per avere un modello
