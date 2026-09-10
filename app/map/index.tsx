@@ -1,22 +1,5 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { DiscoveryMap } from '@/ui/discovery-map';
 
 export default function MapScreen() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Mappa — in arrivo (Milestone 3)</Text>
-    </View>
-  );
+  return <DiscoveryMap />;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#171310',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: {
-    color: '#F5EFE6',
-    fontSize: 16,
-  },
-});
