@@ -1,5 +1,5 @@
-import MapView, { Marker } from 'react-native-maps';
-import { StyleSheet } from 'react-native';
+import MapView, { Callout, Marker } from 'react-native-maps';
+import { StyleSheet, Text, View } from 'react-native';
 import { buildings, discoveryPoints, pompeiiSite } from '@/content/pompeii';
 import { formatDistance, haversineDistanceMeters } from '@/core/services/geo';
 import { useUserLocation } from '@/core/services/use-user-location';
@@ -21,21 +21,27 @@ export function DiscoveryMap() {
     >
       {discoveryPoints.map((point) => {
         const building = buildings.find((b) => b.id === point.buildingId);
-        const distanceLabel = userLocation.coords
-          ? ` — ${formatDistance(
+        const distance = userLocation.coords
+          ? formatDistance(
               haversineDistanceMeters(userLocation.coords, {
                 latitude: point.latitude,
                 longitude: point.longitude,
               }),
-            )}`
-          : '';
+            )
+          : null;
         return (
           <Marker
             key={point.id}
             coordinate={{ latitude: point.latitude, longitude: point.longitude }}
-            title={building?.name.it ?? point.id}
-            description={`${point.description.it}${distanceLabel}`}
-          />
+          >
+            <Callout>
+              <View style={styles.callout}>
+                <Text style={styles.calloutTitle}>{building?.name.it ?? point.id}</Text>
+                <Text style={styles.calloutDescription}>{point.description.it}</Text>
+                {distance && <Text style={styles.calloutDistance}>{distance}</Text>}
+              </View>
+            </Callout>
+          </Marker>
         );
       })}
     </MapView>
@@ -45,5 +51,23 @@ export function DiscoveryMap() {
 const styles = StyleSheet.create({
   map: {
     flex: 1,
+  },
+  callout: {
+    width: 220,
+    padding: 4,
+  },
+  calloutTitle: {
+    fontWeight: '600',
+    fontSize: 14,
+  },
+  calloutDescription: {
+    fontSize: 12,
+    marginTop: 2,
+  },
+  calloutDistance: {
+    fontWeight: '700',
+    fontSize: 13,
+    marginTop: 6,
+    color: '#B5651D',
   },
 });
