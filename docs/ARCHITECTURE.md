@@ -29,24 +29,30 @@ React Native / Expo (Development Build)
 ```
 Discovery_Pompeii/
 ├── app/                        # expo-router screens
-│   ├── (home)/
-│   ├── map/
-│   ├── discovery/[buildingId]/
+│   ├── index.tsx                # Home
+│   ├── map/index.tsx            # Mappa + marker
+│   ├── discovery/[buildingId].tsx  # Navigazione verso un Discovery Point
 │   └── _layout.tsx
 ├── src/
 │   ├── core/                   # Discovery Engine (site-agnostic)
 │   │   ├── models/              # Site, Building, DiscoveryPoint, ARConfiguration...
-│   │   ├── services/            # location, distance, cache, download
+│   │   ├── services/            # geo, use-user-location, use-heading, cache, download
 │   │   └── state/
 │   ├── content/pompeii/         # Pompeii-specific data/content
 │   ├── ar/                      # AR module JS interface + fallback
-│   ├── ui/                      # design system, componenti
+│   ├── ui/                      # componenti condivisi (DiscoveryMap, NavigationPanel...)
 │   └── i18n/
 ├── modules/
 │   └── discovery-ar/            # Expo native module (Swift/Kotlin) - da Milestone 9
 ├── assets/models/                # placeholder in dev, poi download runtime
 └── docs/
 ```
+
+Nota: le route dinamiche a segmento singolo usano un file piatto
+(`discovery/[buildingId].tsx`), non una cartella con `index.tsx` —
+il generatore di typed routes di Expo Router non tipizza correttamente
+quest'ultima forma (registra il percorso letterale invece del segmento
+dinamico). Vedi [DECISIONS.md](DECISIONS.md).
 
 ## Stati dell'app (gestione batteria)
 

@@ -33,3 +33,13 @@ Pompei; i contenuti Pompei vivono in `src/content/pompeii/`.
 
 **Perché**: possibilità dichiarata di riusare il motore su altri siti
 archeologici (Roma, Ercolano, Atene, Egitto) senza riscrivere il core.
+
+## 2026-09-10 — Route dinamiche come file piatto, non cartella+index
+
+**Decisione**: `app/discovery/[buildingId].tsx` invece di
+`app/discovery/[buildingId]/index.tsx`.
+
+**Perché**: con typed routes attivo, Expo Router registrava la seconda forma
+come il percorso letterale `/discovery/[buildingId]/index` invece del segmento
+dinamico `/discovery/[buildingId]`, causando errori di type-check su
+`router.push()`. Il file piatto genera il tipo corretto.
