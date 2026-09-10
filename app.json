@@ -9,11 +9,13 @@
     "userInterfaceStyle": "light",
     "ios": {
       "supportsTablet": true,
+      "bundleIdentifier": "com.gdixie70.discoverypompeii",
       "infoPlist": {
         "NSPhotoLibraryUsageDescription": "Allow $(PRODUCT_NAME) to access your photos",
         "NSPhotoLibraryAddUsageDescription": "Allow $(PRODUCT_NAME) to save photos",
         "NSCameraUsageDescription": "Discovery Pompeii usa la fotocamera per la modalità Discovery in realtà aumentata.",
-        "NSMicrophoneUsageDescription": "Allow $(PRODUCT_NAME) to use your microphone"
+        "NSMicrophoneUsageDescription": "Allow $(PRODUCT_NAME) to use your microphone",
+        "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
