@@ -53,7 +53,12 @@ export function DiscoveryMap() {
           <Pressable
             key={point.id}
             style={styles.card}
-            onPress={() => router.push(`/discovery/${point.buildingId}`)}
+            onPress={() =>
+              router.push({
+                pathname: '/discovery/[buildingId]',
+                params: { buildingId: point.buildingId },
+              })
+            }
           >
             <Text style={styles.cardTitle}>{building?.name.it ?? point.id}</Text>
             <Text style={styles.cardMeta}>

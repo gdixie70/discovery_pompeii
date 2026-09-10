@@ -45,7 +45,12 @@ export function DiscoveryMap() {
             <Marker
               key={point.id}
               coordinate={{ latitude: point.latitude, longitude: point.longitude }}
-              onCalloutPress={() => router.push(`/discovery/${point.buildingId}`)}
+              onCalloutPress={() =>
+                router.push({
+                  pathname: '/discovery/[buildingId]',
+                  params: { buildingId: point.buildingId },
+                })
+              }
             >
               <Callout>
                 <View style={styles.callout}>
