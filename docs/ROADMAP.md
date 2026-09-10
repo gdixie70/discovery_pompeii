@@ -7,7 +7,7 @@ Ogni milestone: obiettivo chiaro → modifica minima → test → verifica → c
       navigation, struttura cartelle, documentazione)
 - [x] **Milestone 1** — Home screen
 - [x] **Milestone 2** — Data model Discovery Point
-- [ ] **Milestone 3** — Mappa + marker
+- [x] **Milestone 3** — Mappa + marker
 - [ ] **Milestone 4** — GPS utente
 - [ ] **Milestone 5** — Distanza dal Discovery Point
 - [ ] **Milestone 6** — Bussola / heading
