@@ -1,4 +1,5 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useRouter } from 'expo-router';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { buildings, discoveryPoints } from '@/content/pompeii';
 import { formatDistance, haversineDistanceMeters } from '@/core/services/geo';
 import { useHeading } from '@/core/services/use-heading';
@@ -27,6 +28,7 @@ function locationStatusText(state: UserLocationState): string {
 export function DiscoveryMap() {
   const userLocation = useUserLocation();
   const heading = useHeading();
+  const router = useRouter();
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
@@ -48,13 +50,18 @@ export function DiscoveryMap() {
             )
           : null;
         return (
-          <View key={point.id} style={styles.card}>
+          <Pressable
+            key={point.id}
+            style={styles.card}
+            onPress={() => router.push(`/discovery/${point.buildingId}`)}
+          >
             <Text style={styles.cardTitle}>{building?.name.it ?? point.id}</Text>
             <Text style={styles.cardMeta}>
               {point.latitude.toFixed(4)}, {point.longitude.toFixed(4)}
               {distance ? ` — ${distance}` : ''}
             </Text>
-          </View>
+            <Text style={styles.cardHint}>Tocca per navigare</Text>
+          </Pressable>
         );
       })}
     </ScrollView>
@@ -94,5 +101,10 @@ const styles = StyleSheet.create({
     color: '#B8AFA3',
     fontSize: 13,
     marginTop: 4,
+  },
+  cardHint: {
+    color: '#8A8378',
+    fontSize: 11,
+    marginTop: 6,
   },
 });

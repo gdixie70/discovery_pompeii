@@ -1,3 +1,4 @@
+import { useRouter } from 'expo-router';
 import MapView, { Callout, Marker } from 'react-native-maps';
 import { StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -10,6 +11,7 @@ export function DiscoveryMap() {
   const userLocation = useUserLocation();
   const heading = useHeading();
   const insets = useSafeAreaInsets();
+  const router = useRouter();
 
   return (
     <View style={styles.container}>
@@ -43,12 +45,14 @@ export function DiscoveryMap() {
             <Marker
               key={point.id}
               coordinate={{ latitude: point.latitude, longitude: point.longitude }}
+              onCalloutPress={() => router.push(`/discovery/${point.buildingId}`)}
             >
               <Callout>
                 <View style={styles.callout}>
                   <Text style={styles.calloutTitle}>{building?.name.it ?? point.id}</Text>
                   <Text style={styles.calloutDescription}>{point.description.it}</Text>
                   {distance && <Text style={styles.calloutDistance}>{distance}</Text>}
+                  <Text style={styles.calloutHint}>Tocca per navigare</Text>
                 </View>
               </Callout>
             </Marker>
@@ -96,5 +100,10 @@ const styles = StyleSheet.create({
     fontSize: 13,
     marginTop: 6,
     color: '#B5651D',
+  },
+  calloutHint: {
+    fontSize: 11,
+    marginTop: 6,
+    color: '#8A8378',
   },
 });

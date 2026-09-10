@@ -6,6 +6,10 @@ function toRadians(degrees: number): number {
   return (degrees * Math.PI) / 180;
 }
 
+function toDegrees(radians: number): number {
+  return (radians * 180) / Math.PI;
+}
+
 /** Distanza in metri tra due coordinate, formula haversine. */
 export function haversineDistanceMeters(a: Coordinates, b: Coordinates): number {
   const deltaLat = toRadians(b.latitude - a.latitude);
@@ -20,6 +24,18 @@ export function haversineDistanceMeters(a: Coordinates, b: Coordinates): number 
     sinDeltaLat * sinDeltaLat + Math.cos(lat1) * Math.cos(lat2) * sinDeltaLon * sinDeltaLon;
 
   return 2 * EARTH_RADIUS_METERS * Math.asin(Math.min(1, Math.sqrt(h)));
+}
+
+/** Direzione (0-360°, 0 = nord) da percorrere per andare da `from` a `to`. */
+export function bearingDegrees(from: Coordinates, to: Coordinates): number {
+  const lat1 = toRadians(from.latitude);
+  const lat2 = toRadians(to.latitude);
+  const deltaLon = toRadians(to.longitude - from.longitude);
+
+  const y = Math.sin(deltaLon) * Math.cos(lat2);
+  const x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(deltaLon);
+
+  return (toDegrees(Math.atan2(y, x)) + 360) % 360;
 }
 
 export function formatDistance(meters: number): string {
