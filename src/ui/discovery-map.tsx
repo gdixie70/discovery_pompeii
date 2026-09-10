@@ -1,5 +1,6 @@
 import MapView, { Callout, Marker } from 'react-native-maps';
 import { StyleSheet, Text, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { buildings, discoveryPoints, pompeiiSite } from '@/content/pompeii';
 import { formatDistance, haversineDistanceMeters } from '@/core/services/geo';
 import { useHeading } from '@/core/services/use-heading';
@@ -8,11 +9,12 @@ import { useUserLocation } from '@/core/services/use-user-location';
 export function DiscoveryMap() {
   const userLocation = useUserLocation();
   const heading = useHeading();
+  const insets = useSafeAreaInsets();
 
   return (
     <View style={styles.container}>
       {heading.status === 'active' && heading.headingDegrees !== null && (
-        <View style={styles.headingBadge}>
+        <View style={[styles.headingBadge, { top: insets.top + 12, right: insets.right + 16 }]}>
           <Text style={styles.headingText}>{Math.round(heading.headingDegrees)}°</Text>
         </View>
       )}
@@ -66,8 +68,6 @@ const styles = StyleSheet.create({
   },
   headingBadge: {
     position: 'absolute',
-    top: 16,
-    right: 16,
     zIndex: 1,
     backgroundColor: '#171310',
     borderRadius: 20,
