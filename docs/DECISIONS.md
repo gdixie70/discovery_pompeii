@@ -66,5 +66,34 @@ manuale, vedi [DISCOVERY_POINT_SPEC.md](DISCOVERY_POINT_SPEC.md)), evitando la
 necessità di API key esterne.
 
 **Impatto**: da questo punto in poi l'AR non è testabile in Expo Go, serve una
-Development Build installata sul dispositivo (EAS Build, vedi
-[AR_RESEARCH.md](AR_RESEARCH.md)). Tutto il resto dell'app resta invariato.
+Development Build installata sul dispositivo. Vedi la voce successiva per come
+viene generata.
+
+## 2026-09-10 — Build native in locale (Mac/Android Studio), non via EAS Build
+
+**Decisione**: usare `npx expo run:ios` (dal MacBook dell'utente) e
+`npx expo run:android` (locale, PC Windows o Mac con Android Studio) per
+generare e installare le Development Build durante lo sviluppo quotidiano.
+EAS Build/Submit restano disponibili (`eas.json` già configurato) ma riservati
+a un secondo momento (distribuzione TestFlight/Play Store, non iterazione
+giornaliera).
+
+**Perché**: tentato inizialmente EAS Build (cloud) per iOS, unica opzione
+disponibile finché si pensava che l'utente sviluppasse solo da Windows (senza
+Mac, impossibile compilare iOS in locale). Il primo giorno di test ha
+incontrato due problemi consecutivi irrisolti da remoto:
+1. Build ad-hoc (`development`) installata sul device ma bloccata da iOS con
+   "impossibile verificare l'integrità" — causa non diagnosticabile senza
+   accesso ai log di sistema del device (serve Mac + Console.app/Xcode).
+2. Tentativo alternativo via TestFlight (`production` + `eas submit`) fallito
+   per un record app "fantasma" su App Store Connect (bundle ID
+   `com.gdixie70.discoverypompeii` correttamente registrato come Identifier,
+   ma app non trovata/non creabile su App Store Connect — creazione
+   automatica di EAS Submit apparentemente fallita a metà, non risolta).
+
+Nel frattempo, l'utente ha esaurito builder EAS gratuite spese su più progetti
+nello stesso account in pochi giorni. Emerso che l'utente ha in realtà un
+MacBook disponibile: la build locale via Xcode elimina completamente sia il
+problema di costo (nessuna build EAS consumata per l'iterazione quotidiana)
+sia il problema di diagnosi (log di sistema disponibili direttamente in
+Xcode/Console.app in caso di problemi).

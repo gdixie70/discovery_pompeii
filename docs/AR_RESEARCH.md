@@ -56,20 +56,28 @@ non pertinente per questa app).
 Unity non è stato scelto: runtime pesante, bridge RN↔Unity fragile da
 mantenere, sproporzionato per un MVP con un solo edificio.
 
-## Development Build (EAS)
+## Development Build
 
-Da qui in poi l'app richiede una Expo Development Build, non più Expo Go:
+Da qui in poi l'app richiede una Expo Development Build, non più Expo Go.
 
-- Progetto EAS creato: `@gdixie70/discovery-pompeii`.
-- `eas.json` con profilo `development` (`developmentClient: true`,
-  distribuzione `internal`).
-- Build iOS: possibile solo via EAS Build in cloud (l'utente sviluppa su
-  Windows, non ha un Mac per compilare localmente con Xcode). Richiede un
-  account Apple Developer Program (a pagamento, $99/anno) per firmare la
-  build su un device reale — passaggio che l'utente deve gestire
-  personalmente (login Apple ID interattivo, non automatizzabile).
-- Build Android: possibile anche in locale se in futuro serve (Android SDK),
-  ma per ora si usa EAS Build per entrambe le piattaforme per coerenza.
+**Build locali (scelta attuale)** — vedi [DECISIONS.md](DECISIONS.md):
+
+- iOS: `npx expo run:ios --device` dal MacBook dell'utente (Xcode).
+- Android: `npx expo run:android` (PC Windows o Mac con Android Studio/SDK).
+- Nessun costo, nessuna quota EAS consumata, log di sistema disponibili
+  direttamente in caso di problemi (Xcode/Console.app, Android Studio
+  Logcat).
+
+**EAS Build/Submit (cloud)** — tentato inizialmente perché si credeva l'utente
+sviluppasse solo da Windows senza Mac. Abbandonato per lo sviluppo quotidiano
+dopo due problemi consecutivi non diagnosticabili da remoto (build ad-hoc
+installata ma bloccata da iOS con "impossibile verificare l'integrità";
+tentativo TestFlight bloccato da un record app "fantasma" su App Store
+Connect) e dopo che l'utente ha esaurito la quota gratuita EAS condivisa tra i
+suoi vari progetti. Resta configurato (`eas.json`, progetto
+`@gdixie70/discovery-pompeii`) per un uso futuro mirato: distribuzione
+TestFlight/Play Store quando l'app sarà più matura, non per l'iterazione
+giornaliera.
 
 ## Allineamento
 
