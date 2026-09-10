@@ -6,7 +6,7 @@ Ogni milestone: obiettivo chiaro → modifica minima → test → verifica → c
 - [x] **Milestone 0** — Repository GitHub, project bootstrap (Expo, TypeScript,
       navigation, struttura cartelle, documentazione)
 - [x] **Milestone 1** — Home screen
-- [ ] **Milestone 2** — Data model Discovery Point
+- [x] **Milestone 2** — Data model Discovery Point
 - [ ] **Milestone 3** — Mappa + marker
 - [ ] **Milestone 4** — GPS utente
 - [ ] **Milestone 5** — Distanza dal Discovery Point
