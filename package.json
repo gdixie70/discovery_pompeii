@@ -6,6 +6,7 @@
     "@reactvision/react-viro": "^2.58.1",
     "expo": "~57.0.21",
     "expo-constants": "~57.0.17",
+    "expo-dev-client": "~57.0.18",
     "expo-file-system": "~57.0.6",
     "expo-linking": "~57.0.9",
     "expo-location": "~57.0.16",
