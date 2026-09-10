@@ -1,6 +1,7 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { buildings, discoveryPoints } from '@/content/pompeii';
 import { formatDistance, haversineDistanceMeters } from '@/core/services/geo';
+import { useHeading } from '@/core/services/use-heading';
 import { useUserLocation, type UserLocationState } from '@/core/services/use-user-location';
 
 function locationStatusText(state: UserLocationState): string {
@@ -25,6 +26,7 @@ function locationStatusText(state: UserLocationState): string {
  */
 export function DiscoveryMap() {
   const userLocation = useUserLocation();
+  const heading = useHeading();
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
@@ -32,6 +34,9 @@ export function DiscoveryMap() {
         Mappa interattiva disponibile su iOS/Android. Discovery Point:
       </Text>
       <Text style={styles.locationStatus}>{locationStatusText(userLocation)}</Text>
+      {heading.status === 'unsupported' && (
+        <Text style={styles.locationStatus}>Bussola non disponibile su web.</Text>
+      )}
       {discoveryPoints.map((point) => {
         const building = buildings.find((b) => b.id === point.buildingId);
         const distance = userLocation.coords
